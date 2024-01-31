@@ -3,9 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:module_elektronika/detail_screen.dart';
 import 'package:module_elektronika/models/bab_models.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
+
+  final Uri _url = Uri.parse(
+      'https://drive.google.com/drive/folders/1CG75xcuhP9uqmfHJ_fxN_S72sLqDdsER');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      const ScaffoldMessenger(
+          child: SnackBar(content: Text('Gagal Membuka link')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +25,9 @@ class MainScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.blueGrey,
-      //   title: Text('Modul Rangkaian Elektronika Lanjut'),
-      // ),
       body: Stack(
         children: [
-          Container(
+          SizedBox(
               height: screenHeight,
               width: screenWidth,
               child: Column(
@@ -31,10 +37,6 @@ class MainScreen extends StatelessWidget {
                   Image.asset('lib/images/footer.png'),
                 ],
               )),
-          // Positioned(
-          //   bottom: 0,
-          //   child: Image.asset('lib/images/foother.jpeg'),
-          // ),
           SafeArea(
             child: SingleChildScrollView(
               child: Padding(
