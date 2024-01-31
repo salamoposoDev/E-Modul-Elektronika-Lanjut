@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:module_elektronika/praktikum/step_praktek.dart';
 import 'package:module_elektronika/video_player_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PraktikumBab7 extends StatelessWidget {
   PraktikumBab7({super.key});
@@ -45,6 +46,16 @@ transistor ke ground melalui resistor R1), transistor akan mengalirkan arus.
     },
   ];
 
+  final Uri _url = Uri.parse(
+      'https://getintopc.com/softwares/electrical-engineering/proteus-professional-2022-free-download/?id=000835479650');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      const ScaffoldMessenger(
+          child: SnackBar(content: Text('Gagal Membuka link')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,6 +83,13 @@ transistor ke ground melalui resistor R1), transistor akan mengalirkan arus.
             fontWeight: FontWeight.w500,
           ),
         ),
+        TextButton(
+            onPressed: _launchUrl,
+            child: Text(
+              'Download Proteus ->',
+              style: GoogleFonts.poppins(
+                  fontSize: 12.sp, height: 1.8, color: Colors.blue),
+            )),
         const VideoPlayerScreen(
             videoUrl: 'https://www.youtube.com/watch?v=bW2lm3PfCXk'),
         SizedBox(height: 16.h),
